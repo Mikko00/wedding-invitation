@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf2e8">
+  <meta name="description" content="The wedding invitation of Mikko Concepcion and Maria Ellaine Santos — January 10, 2027.">
+  <title>Mikko & Maria Ellaine | Our Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="petal-layer" aria-hidden="true" id="petals"></div>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Back to home">M <span>&</span> M</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav id="navigation">
+      <a href="#story">Our Story</a><a href="#details">The Details</a><a href="#gallery">Invitation</a><a href="#rsvp" class="nav-rsvp">RSVP <span>♡</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-frame"></div>
+      <div class="hero-floral floral-top">✿ ❀ ✿</div>
+      <p class="eyebrow reveal">TOGETHER WITH OUR FAMILIES</p>
+      <p class="invite-line reveal">joyfully invite you to celebrate</p>
+      <h1 class="couple-name reveal"><span>Mikko Concepcion</span><i>and</i><span>Maria Ellaine Santos</span></h1>
+      <div class="ornament reveal"><span></span>♥<span></span></div>
+      <p class="hero-sub reveal">AS WE BEGIN OUR FOREVER</p>
+      <div class="hero-photo-wrap reveal">
+        <img src="assets/invitation-page-1.png" alt="Our original wedding invitation artwork" class="hero-art">
+      </div>
+      <div class="hero-date reveal"><span>JANUARY</span><strong>10</strong><span>2027</span></div>
+      <p class="hero-place reveal">ESCONDIDO EVENTS PLACE <small>Biñan, Laguna</small></p>
+      <a class="scroll-cue" href="#story" aria-label="Scroll to discover">↓ <span>SCROLL TO DISCOVER</span></a>
+    </section>
+
+    <section class="story section-pad" id="story">
+      <p class="eyebrow reveal">A LITTLE NOTE FROM US</p>
+      <h2 class="script-heading reveal">Our forever begins here</h2>
+      <div class="ornament reveal"><span></span>♥<span></span></div>
+      <p class="story-copy reveal">With the love and support of our family and friends, we begin our forever through a Civil Wedding. It would mean so much to have you with us as we celebrate this beautiful new chapter.</p>
+      <div class="countdown reveal" aria-label="Countdown to wedding day">
+        <div><strong id="days">---</strong><span>Days</span></div>
+        <div><strong id="hours">--</strong><span>Hours</span></div>
+        <div><strong id="minutes">--</strong><span>Minutes</span></div>
+        <div><strong id="seconds">--</strong><span>Seconds</span></div>
+      </div>
+      <p class="countdown-caption">UNTIL WE SAY “I DO”</p>
+    </section>
+
+    <section class="details section-pad" id="details">
+      <p class="eyebrow reveal">SAVE THE DATE</p>
+      <h2 class="script-heading reveal">The Details</h2>
+      <div class="detail-grid">
+        <article class="detail-card reveal"><div class="detail-icon">♡</div><p class="eyebrow">WHEN</p><h3>Sunday, January 10, 2027</h3><p>Ceremony at 10:00 AM<br>Reception to follow at 12:00 PM</p></article>
+        <article class="detail-card reveal"><div class="detail-icon">⌖</div><p class="eyebrow">WHERE</p><h3>Escondido Events Place</h3><p>St Country Homes, 111 Southview St,<br>cor Green Meadows, Biñan, 4024 Laguna</p><a class="text-link" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Escondido+Events+Place+Binan+Laguna">View map ↗</a></article>
+        <article class="detail-card reveal"><div class="detail-icon">✿</div><p class="eyebrow">DRESS CODE</p><h3>Semi-formal attire</h3><p>We would love to see you in our wedding colors.</p><div class="swatches"><i title="Sage green"></i><i title="Blush pink"></i><i title="Warm beige"></i><i title="Ivory"></i></div><small>Sage · Blush · Beige · Ivory</small></article>
+      </div>
+    </section>
+
+    <section class="gallery section-pad" id="gallery">
+      <p class="eyebrow reveal">MADE WITH LOVE</p><h2 class="script-heading reveal">Our Invitation</h2>
+      <p class="gallery-intro reveal">Every little detail, lovingly prepared for our special day.</p>
+      <div class="invitation-gallery">
+        <button class="invite-card reveal" data-image="1" aria-label="View invitation page one"><img src="assets/invitation-page-1.png" alt="Wedding invitation — couple, date and venue"><span>01 · The Invitation</span><b>View invitation ↗</b></button>
+        <button class="invite-card reveal" data-image="2" aria-label="View invitation page two"><img src="assets/invitation-page-2.png" alt="Wedding invitation — parents and principal sponsors"><span>02 · Our Loved Ones</span><b>View invitation ↗</b></button>
+        <button class="invite-card reveal" data-image="3" aria-label="View invitation page three"><img src="assets/invitation-page-3.png" alt="Wedding invitation — RSVP, attire, gifts and timeline"><span>03 · Guest Guide</span><b>View invitation ↗</b></button>
+      </div>
+    </section>
+
+    <section class="rsvp section-pad" id="rsvp">
+      <p class="eyebrow reveal">KINDLY REPLY</p><h2 class="script-heading reveal">Will you join us?</h2>
+      <p class="rsvp-copy reveal">We have reserved a place in our hearts—and at our celebration—for you.</p>
+      <form class="rsvp-form reveal" id="rsvpForm">
+        <label>Your full name<input type="text" name="name" required placeholder="Name as written on invitation"></label>
+        <label>Will you be attending?
+          <select name="attendance" required><option value="" disabled selected>Please select</option><option value="Joyfully accepts">Joyfully accepts</option><option value="Regretfully declines">Regretfully declines</option></select>
+        </label>
+        <label>Number of guests
+          <select name="guests" required><option value="1">1 guest</option><option value="2">2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option></select>
+        </label>
+        <label>A note for the couple <textarea name="note" rows="3" placeholder="Optional message…"></textarea></label>
+        <button type="submit" class="submit-btn">Prepare RSVP ♡</button>
+        <p class="form-hint">This demo prepares a message for you to send. No response is saved on a server.</p>
+      </form>
+      <div class="rsvp-result" id="rsvpResult" role="status" aria-live="polite" hidden></div>
+    </section>
+  </main>
+
+  <footer><div class="ornament"><span></span>♥<span></span></div><p class="footer-script">We can’t wait to celebrate with you!</p><p class="footer-names">MIKKO <span>&</span> MARIA ELLAINE</p><small>JANUARY 10, 2027 · WITH LOVE, ALWAYS</small></footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Invitation image viewer" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close invitation">×</button>
+    <button class="lightbox-arrow prev" id="prevImage" aria-label="Previous invitation">‹</button>
+    <img id="lightboxImage" src="assets/invitation-page-1.png" alt="Wedding invitation enlarged">
+    <button class="lightbox-arrow next" id="nextImage" aria-label="Next invitation">›</button>
+    <p id="lightboxCaption">Page 1 of 3</p>
+  </div>
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+  <script src="script.js"></script>
+</body>
+</html>
