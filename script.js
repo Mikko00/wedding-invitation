@@ -93,7 +93,7 @@ $('#rsvpForm').addEventListener('submit', e => {
   const result = $('#rsvpResult');
   result.hidden = false;
   result.innerHTML = `<strong>Thank you, ${escapeHtml(name)}!</strong><br>Your RSVP message is ready. Choose below to open your email app, or copy the details to message the couple. <p><button type="button" id="emailRsvp">Open email draft</button> <button type="button" id="copyRsvp">Copy RSVP text</button></p>`;
-  const plain = `Hello Mikko and Maria Ellaine!\n\nName: ${name}\nResponse: ${attendance}\nNumber of guests: ${guests}${note ? `\nMessage: ${note}` : ''}`;
+  const plain = `Hello Mikko and Maria Ellaine!\n\nName: ${name}\nResponse: ${attendance}\n${note ? `\nMessage: ${note}` : ''}`;
   $('#emailRsvp').addEventListener('click', () => {
     // Replace this placeholder with the couple's actual RSVP email address before publishing.
     window.location.href = `mailto:?subject=${encodeURIComponent('Wedding RSVP — ' + name)}&body=${message}`;
