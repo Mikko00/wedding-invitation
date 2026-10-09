@@ -18,7 +18,7 @@
     <a class="brand" href="#home" aria-label="Back to home">M <span>&</span> M</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
     <nav id="navigation">
-      <a href="#story">Our Story</a><a href="#details">The Details</a><a href="#gallery">Invitation</a><a href="#rsvp" class="nav-rsvp">RSVP <span>♡</span></a>
+      <a href="#story">Our Story</a><a href="#details">The Details</a><a href="#prenup">Prenup Gallery</a><a href="#gallery">Invitation</a>
     </nav>
   </header>
 
@@ -63,6 +63,21 @@
       </div>
     </section>
 
+<section class="prenup section-pad" id="prenup"><p class="eyebrow reveal">OUR LOVE, IN FRAMES</p>
+<h2 class="script-heading reveal">Prenup Photo Gallery</h2><p class="gallery-intro reveal">A few moments from our journey to forever.</p>
+<div class="prenup-grid"><button class="prenup-card reveal" data-prenup="1" aria-label="View prenuptial photo 1">
+<img src="assets/prenup-1.jpg" alt="Prenuptial photoshoot photo 1" loading="lazy">
+<span class="photo-placeholder"><b>♡</b><small>OUR MOMENT · 01</small></span></button><button class="prenup-card reveal" data-prenup="2" aria-label="View prenuptial photo 2">
+<img src="assets/prenup-2.jpg" alt="Prenuptial photoshoot photo 2" loading="lazy">
+<span class="photo-placeholder"><b>✿</b><small>OUR MOMENT · 02</small></span></button><button class="prenup-card reveal" data-prenup="3" aria-label="View prenuptial photo 3">
+<img src="assets/prenup-3.jpg" alt="Prenuptial photoshoot photo 3" loading="lazy">
+<span class="photo-placeholder"><b>♡</b><small>OUR MOMENT · 03</small></span></button><button class="prenup-card reveal" data-prenup="4" aria-label="View prenuptial photo 4">
+<img src="assets/prenup-4.jpg" alt="Prenuptial photoshoot photo 4" loading="lazy">
+<span class="photo-placeholder"><b>✿</b><small>OUR MOMENT · 04</small></span></button><button class="prenup-card reveal" data-prenup="5" aria-label="View prenuptial photo 5">
+<img src="assets/prenup-5.jpg" alt="Prenuptial photoshoot photo 5" loading="lazy">
+<span class="photo-placeholder"><b>♡</b><small>OUR MOMENT · 05</small></span></button><button class="prenup-card reveal" data-prenup="6" aria-label="View prenuptial photo 6">
+<img src="assets/prenup-6.jpg" alt="Prenuptial photoshoot photo 6" loading="lazy">
+<span class="photo-placeholder"><b>✿</b><small>OUR MOMENT · 06</small></span></button></div><p class="gallery-note reveal">Add your photos to the <code>assets</code> folder as <code>prenup-1.jpg</code> through <code>prenup-6.jpg</code>. Available photos will appear automatically.</p></section>
     <section class="gallery section-pad" id="gallery">
       <p class="eyebrow reveal">MADE WITH LOVE</p><h2 class="script-heading reveal">Our Invitation</h2>
       <p class="gallery-intro reveal">Every little detail, lovingly prepared for our special day.</p>
@@ -72,7 +87,7 @@
         <button class="invite-card reveal" data-image="3" aria-label="View invitation page three"><img src="assets/invitation-page-3.png" alt="Wedding invitation — RSVP, attire, gifts and timeline"><span>03 · Guest Guide</span><b>View invitation ↗</b></button>
       </div>
     </section>
-  </main>
+</main>
 
   <footer><div class="ornament"><span></span>♥<span></span></div><p class="footer-script">We can’t wait to celebrate with you!</p><p class="footer-names">MIKKO <span>&</span> MARIA ELLAINE</p><small>JANUARY 10, 2027 · WITH LOVE, ALWAYS</small></footer>
 
@@ -83,6 +98,8 @@
     <button class="lightbox-arrow next" id="nextImage" aria-label="Next invitation">›</button>
     <p id="lightboxCaption">Page 1 of 3</p>
   </div>
+<audio id="backgroundMusic" src="assets/background-music.mp3" loop preload="none"></audio>
+<div class="music-control-wrap"><div class="music-credit" id="musicCredit" role="tooltip">Music credit: Your Love - Juris | Piano Cover by Gerard Chua. All rights belong to the respective copyright owner. Music is used for personal wedding-invitation purposes.</div><button class="music-toggle" id="musicToggle" aria-label="Play background music" aria-pressed="false" aria-describedby="musicCredit"><span class="music-note">♫</span><span class="music-label">Tap for music</span></button></div>
   <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
 </body>

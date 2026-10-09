@@ -81,27 +81,67 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   setInterval(makePetal, 1800);
 }
 
-// RSVP: prepares a ready-to-send email, does not pretend to save data online.
-$('#rsvpForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const data = new FormData(e.currentTarget);
-  const name = String(data.get('name') || '').trim();
-  const attendance = data.get('attendance');
-  const guests = data.get('guests');
-  const note = String(data.get('note') || '').trim();
-  const message = `Hello Mikko and Maria Ellaine!%0D%0A%0D%0AName: ${encodeURIComponent(name)}%0D%0AResponse: ${encodeURIComponent(attendance)}%0D%0ANumber of guests: ${encodeURIComponent(guests)}%0D%0A${note ? `Message: ${encodeURIComponent(note)}%0D%0A` : ''}%0D%0A`;
-  const result = $('#rsvpResult');
-  result.hidden = false;
-  result.innerHTML = `<strong>Thank you, ${escapeHtml(name)}!</strong><br>Your RSVP message is ready. Choose below to open your email app, or copy the details to message the couple. <p><button type="button" id="emailRsvp">Open email draft</button> <button type="button" id="copyRsvp">Copy RSVP text</button></p>`;
-  const plain = `Hello Mikko and Maria Ellaine!\n\nName: ${name}\nResponse: ${attendance}\n${note ? `\nMessage: ${note}` : ''}`;
-  $('#emailRsvp').addEventListener('click', () => {
-    // Replace this placeholder with the couple's actual RSVP email address before publishing.
-    window.location.href = `mailto:?subject=${encodeURIComponent('Wedding RSVP — ' + name)}&body=${message}`;
-  });
-  $('#copyRsvp').addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(plain); $('#copyRsvp').textContent = 'Copied ✓'; }
-    catch { const ta = document.createElement('textarea'); ta.value = plain; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); $('#copyRsvp').textContent = 'Copied ✓'; }
-  });
-  result.scrollIntoView({behavior:'smooth',block:'center'});
+
+const prenupCards=$$('.prenup-card'),prenupPaths=[1,2,3,4,5,6].map(n=>`assets/prenup-${n}.jpg`);
+prenupCards.forEach((card,i)=>{const img=$('img',card);img.addEventListener('load',()=>card.classList.add('has-photo'));img.addEventListener('error',()=>card.classList.remove('has-photo'));if(img.complete&&img.naturalWidth>0)card.classList.add('has-photo');card.addEventListener('click',()=>{previousFocus=document.activeElement;currentImage=i;lightboxImage.src=prenupPaths[i];lightboxImage.alt=`Prenuptial photo ${i+1}`;caption.textContent=`Prenup photo ${i+1} of ${prenupPaths.length}`;lightbox.hidden=false;document.body.style.overflow='hidden';$('#lightboxClose').focus();});});
+const musicButton=$('#musicToggle'),music=$('#backgroundMusic');
+let synthContext=null,synthTimer=null,synthNodes=[],synthStep=0,musicStarted=false;
+function stopSynth(){
+ if(synthTimer)clearInterval(synthTimer);synthTimer=null;
+ synthNodes.forEach(n=>{try{n.stop()}catch(e){}});synthNodes=[];
+ if(synthContext&&synthContext.state!=='closed')synthContext.close();synthContext=null;
+}
+function setMusicState(playing){
+ musicStarted=playing;musicButton.classList.toggle('playing',playing);
+ musicButton.setAttribute('aria-pressed',String(playing));
+ musicButton.setAttribute('aria-label',playing?'Pause background music':'Play background music');
+ $('.music-label',musicButton).textContent=playing?'Pause music':'Tap for music';
+}
+function playSynth(){
+ const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('Audio unsupported');
+ synthContext=new AC();const ctx=synthContext,master=ctx.createGain();master.gain.value=.05;master.connect(ctx.destination);
+ const melody=[261.63,329.63,392,329.63,293.66,349.23,440,349.23,261.63,329.63,392,523.25,440,392,349.23,293.66],roots=[130.81,174.61,146.83,196];
+ function note(f,t,d,v,type){const o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.12);g.gain.setValueAtTime(v,t+d-.18);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.02);synthNodes.push(o);}
+ function phrase(){const now=ctx.currentTime+.05;melody.forEach((f,i)=>{const t=now+i*.48;note(melody[(i+synthStep)%melody.length],t,1.25,.13,'sine');if(i%4===0){const r=roots[(Math.floor(i/4)+synthStep)%roots.length];note(r,t,2,.07,'triangle');note(r*1.5,t+.05,1.6,.025,'sine');}});synthStep=(synthStep+1)%melody.length;}
+ phrase();synthTimer=setInterval(phrase,melody.length*480);
+}
+async function startMusic(useFallback=true){
+ if(musicStarted)return true;
+ try{
+  // Try the configured MP3 first. It must be present at assets/background-music.mp3.
+  try{
+   music.load();
+   if(music.readyState===0)await new Promise((resolve,reject)=>{
+    const timer=setTimeout(()=>reject(Error('MP3 unavailable')),1200);
+    music.addEventListener('canplay',()=>{clearTimeout(timer);resolve();},{once:true});
+    music.addEventListener('error',()=>{clearTimeout(timer);reject(Error('MP3 unavailable'));},{once:true});
+   });
+   await music.play();
+  }catch(e){if(!useFallback)throw e;playSynth();}
+  setMusicState(true);return true;
+ }catch(e){setMusicState(false);return false;}
+}
+async function toggleMusic(){
+ if(musicStarted){music.pause();stopSynth();setMusicState(false);return;}
+ if(!await startMusic(true))alert('Music could not start. Please try again in a modern browser.');
+}
+musicButton.addEventListener('click',toggleMusic);
+
+// Attempt autoplay on load. Audible autoplay is commonly blocked by browser settings.
+// If blocked, retry on the visitor's first interaction and keep the visible music button.
+window.addEventListener('load',async()=>{
+ const started=await startMusic(false);
+ if(!started){
+  $('.music-label',musicButton).textContent='Tap for music';
+  const retry=async()=>{
+   if(!musicStarted)await startMusic(true);
+   window.removeEventListener('pointerdown',retry);
+   window.removeEventListener('keydown',retry);
+   window.removeEventListener('touchstart',retry);
+  };
+  window.addEventListener('pointerdown',retry,{once:true});
+  window.addEventListener('keydown',retry,{once:true});
+  window.addEventListener('touchstart',retry,{once:true,passive:true});
+ }
 });
-function escapeHtml(value) { return value.replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+music.addEventListener('ended',()=>setMusicState(false));
