@@ -33,3 +33,28 @@ footer{text-align:center;padding:45px 20px 55px;background:#e7e8dc;color:var(--s
 .music-credit:after{content:"";position:absolute;left:24px;top:100%;border:7px solid transparent;border-top-color:#fffaf3}
 .music-control-wrap:hover .music-credit,.music-control-wrap:focus-within .music-credit{opacity:1;visibility:visible;transform:translateY(0)}
 @media(max-width:760px){.music-control-wrap{left:12px;bottom:12px}}
+
+/* Bug fix: keep the decorative heart divider centered on mobile and desktop. */
+.ornament{
+  display:flex;
+  width:max-content;
+  max-width:100%;
+  align-items:center;
+  justify-content:center;
+  gap:17px;
+  margin-left:auto;
+  margin-right:auto;
+  flex:0 0 auto;
+}
+.ornament span{
+  display:block;
+  flex:0 0 65px;
+  width:65px;
+  min-width:65px;
+  height:1px;
+  background:var(--gold);
+}
+@media(max-width:360px){
+  .ornament{gap:11px}
+  .ornament span{flex-basis:48px;width:48px;min-width:48px}
+}
