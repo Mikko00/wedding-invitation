@@ -19,3 +19,15 @@ gentle synthesized instrumental fallback.
 MUSIC CREDIT
 Hover over or keyboard-focus the music button to view the attribution tooltip. The wording is
 an attribution notice only and does not itself grant music rights or a license.
+
+
+PRENUP COLLAGE
+The gallery is arranged as a staggered collage for 3 portrait and 3 landscape photos.
+Portrait slots: prenup-1.jpg, prenup-4.jpg, prenup-5.jpg.
+Landscape slots: prenup-2.jpg, prenup-3.jpg, prenup-6.jpg.
+Put the files in the assets folder. Clicking a tile opens the image viewer.
+
+
+ACTUAL PRENUP PHOTOS INCLUDED
+The six photos provided by the couple have been added to the assets folder as prenup-1.jpg
+through prenup-6.jpg. Their natural orientation is detected and applied to the collage classes.

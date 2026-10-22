@@ -33,25 +33,36 @@ function updateCountdown() {
 }
 updateCountdown(); setInterval(updateCountdown, 1000);
 
-// Invitation lightbox with previous/next and keyboard support
-const imagePaths = [1,2,3].map(n => `assets/invitation-page-${n}.png`);
-const captions = ['Page 1 of 3 · The Invitation','Page 2 of 3 · Our Loved Ones','Page 3 of 3 · Guest Guide'];
+// Shared image viewer with separate image sets for invitation pages and prenup photos.
+const invitationPaths = [1,2,3].map(n => `assets/invitation-page-${n}.png`);
+const invitationCaptions = ['Page 1 of 3 · The Invitation','Page 2 of 3 · Our Loved Ones','Page 3 of 3 · Guest Guide'];
+const prenupPaths = [1,2,3,4,5,6].map(n => `assets/prenup-${n}.jpg`);
+const prenupCaptions = prenupPaths.map((_,i) => `Prenuptial Photo ${i+1} of ${prenupPaths.length}`);
 const lightbox = $('#lightbox'), lightboxImage = $('#lightboxImage'), caption = $('#lightboxCaption');
-let currentImage = 0, previousFocus = null;
+let currentImage = 0, activeImagePaths = invitationPaths, activeCaptions = invitationCaptions, previousFocus = null;
+
 function showImage(index) {
-  currentImage = (index + imagePaths.length) % imagePaths.length;
-  lightboxImage.src = imagePaths[currentImage];
-  lightboxImage.alt = captions[currentImage];
-  caption.textContent = captions[currentImage];
+  currentImage = (index + activeImagePaths.length) % activeImagePaths.length;
+  lightboxImage.src = activeImagePaths[currentImage];
+  lightboxImage.alt = activeCaptions[currentImage];
+  caption.textContent = activeCaptions[currentImage];
 }
-function openLightbox(index) {
+function openLightbox(index, paths, captions) {
   previousFocus = document.activeElement;
-  showImage(index); lightbox.hidden = false; document.body.style.overflow = 'hidden'; $('#lightboxClose').focus();
+  activeImagePaths = paths;
+  activeCaptions = captions;
+  showImage(index);
+  lightbox.hidden = false;
+  document.body.style.overflow = 'hidden';
+  $('#lightboxClose').focus();
 }
 function closeLightbox() {
-  lightbox.hidden = true; document.body.style.overflow = ''; if(previousFocus) previousFocus.focus();
+  lightbox.hidden = true;
+  lightboxImage.removeAttribute('src');
+  document.body.style.overflow = '';
+  if(previousFocus) previousFocus.focus();
 }
-$$('.invite-card').forEach((card, i) => card.addEventListener('click', () => openLightbox(i)));
+$$('.invite-card').forEach((card, i) => card.addEventListener('click', () => openLightbox(i, invitationPaths, invitationCaptions)));
 $('#lightboxClose').addEventListener('click', closeLightbox);
 $('#prevImage').addEventListener('click', () => showImage(currentImage - 1));
 $('#nextImage').addEventListener('click', () => showImage(currentImage + 1));
@@ -82,8 +93,14 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 }
 
 
-const prenupCards=$$('.prenup-card'),prenupPaths=[1,2,3,4,5,6].map(n=>`assets/prenup-${n}.jpg`);
-prenupCards.forEach((card,i)=>{const img=$('img',card);img.addEventListener('load',()=>card.classList.add('has-photo'));img.addEventListener('error',()=>card.classList.remove('has-photo'));if(img.complete&&img.naturalWidth>0)card.classList.add('has-photo');card.addEventListener('click',()=>{previousFocus=document.activeElement;currentImage=i;lightboxImage.src=prenupPaths[i];lightboxImage.alt=`Prenuptial photo ${i+1}`;caption.textContent=`Prenup photo ${i+1} of ${prenupPaths.length}`;lightbox.hidden=false;document.body.style.overflow='hidden';$('#lightboxClose').focus();});});
+const prenupCards=$$('.prenup-card');
+prenupCards.forEach((card,i)=>{
+ const img=$('img',card);
+ img.addEventListener('load',()=>card.classList.add('has-photo'));
+ img.addEventListener('error',()=>card.classList.remove('has-photo'));
+ if(img.complete&&img.naturalWidth>0)card.classList.add('has-photo');
+ card.addEventListener('click',()=>openLightbox(i,prenupPaths,prenupCaptions));
+});
 const musicButton=$('#musicToggle'),music=$('#backgroundMusic');
 let synthContext=null,synthTimer=null,synthNodes=[],synthStep=0,musicStarted=false;
 function stopSynth(){
